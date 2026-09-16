@@ -6,6 +6,9 @@ const client = new MongoClient(process.env.MONGODB_URI);
 let database;
 
 const connect_db = async () => {
+      if (database) {
+            return database;
+      }
       try {
             await client.connect();
             database = client.db("harvest_table_db");

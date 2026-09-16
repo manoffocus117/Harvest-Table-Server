@@ -31,6 +31,11 @@ app.get("/menu", async (req, res) => {
       }
 });
 
-app.listen(port, () => {
-      console.log(`Server in running on port: ${port}`);
-});
+// Only listen locally — Vercel invokes the exported app per-request instead
+if (process.env.NODE_ENV !== "production") {
+      app.listen(port, () => {
+            console.log(`server is running on port ${port}`);
+      });
+}
+
+export default app;
