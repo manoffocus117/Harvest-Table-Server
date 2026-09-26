@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
 app.use("/menu", menu_routes);
 app.use("/reviews", reviews_routes);
 app.use("/cart", cart_routers);
+app.use("/cart", cart_routers);
 
 // local development
 if (process.env.NODE_ENV !== "production") {
