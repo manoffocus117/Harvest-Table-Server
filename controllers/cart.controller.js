@@ -22,8 +22,9 @@ const get_cart = async (req, res) => {
       try {
             const database = get_db();
             const cart_collection = database.collection("cart");
-
-            const result = await cart_collection.find().toArray();
+            const email = req.query.email;
+            const query = { email: email };
+            const result = await cart_collection.find(query).toArray();
             res.send(result);
       } catch (error) {
             res.status(500).send({
