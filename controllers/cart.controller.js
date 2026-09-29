@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { get_db } from "../config/database.js";
 
 // add to cart
@@ -34,4 +35,21 @@ const get_cart = async (req, res) => {
       }
 };
 
-export { add_to_cart, get_cart };
+// delete a cart item
+const delete_cart_item = async (req, res) => {
+      try {
+            const database = get_db();
+            const cart_collection = database.collection("cart");
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await cart_collection.deleteOne(query);
+            res.send(result);
+      } catch (error) {
+            res.status(500).send({
+                  message: "failed to delete cart item",
+                  error: error.message,
+            });
+      }
+};
+
+export { add_to_cart, get_cart, delete_cart_item };
