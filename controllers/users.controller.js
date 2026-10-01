@@ -14,4 +14,19 @@ const get_users = async (req, res) => {
       }
 };
 
-export { get_users };
+const add_user = async (req, res) => {
+      try {
+            const database = get_db();
+            const users_collection = database.collection("users");
+            const user = req.body;
+            const result = await users_collection.insertOne(user);
+            res.send(result);
+      } catch (error) {
+            res.status(500).send({
+                  message: "failed to add user",
+                  error: error.message,
+            });
+      }
+};
+
+export { get_users, add_user };
