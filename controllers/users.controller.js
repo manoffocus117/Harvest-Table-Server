@@ -19,6 +19,14 @@ const add_user = async (req, res) => {
             const database = get_db();
             const users_collection = database.collection("users");
             const user = req.body;
+            const query = { email: user.email };
+            const existing_user = await users_collection.findOne(query);
+            if (existing_user) {
+                  return res.send({
+                        message: "user already existed",
+                        insertedId: null,
+                  });
+            }
             const result = await users_collection.insertOne(user);
             res.send(result);
       } catch (error) {
