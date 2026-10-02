@@ -38,6 +38,29 @@ const add_user = async (req, res) => {
       }
 };
 
+const make_admin = async (req, res) => {
+      try {
+            const database = get_db();
+            const users_collection = database.collection("users");
+
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+
+            const updated_doc = {
+                  $set: {
+                        role: "admin",
+                  },
+            };
+            const result = await users_collection.updateOne(query, updated_doc);
+            res.send(result);
+      } catch (error) {
+            res.status(500).send({
+                  message: "failed to make admin",
+                  error: error.message,
+            });
+      }
+};
+
 const delete_user = async (req, res) => {
       try {
             const database = get_db();
@@ -54,4 +77,4 @@ const delete_user = async (req, res) => {
       }
 };
 
-export { get_users, add_user, delete_user };
+export { get_users, make_admin, add_user, delete_user };
