@@ -5,9 +5,10 @@ import {
       make_admin,
       delete_user,
 } from "../controllers/users.controller.js";
+import verify_token from "../middlewares/verify_token.middleware.js";
 const router = express.Router();
 
-router.get("/", get_users);
+router.get("/", verify_token, get_users);
 router.post("/", add_user);
 router.patch("/:id", make_admin);
 router.delete("/:id", delete_user);
