@@ -4,6 +4,7 @@ import {
       add_user,
       make_admin,
       delete_user,
+      get_admin,
 } from "../controllers/users.controller.js";
 import verify_token from "../middlewares/verify_token.middleware.js";
 const router = express.Router();
@@ -11,6 +12,7 @@ const router = express.Router();
 router.get("/", verify_token, get_users);
 router.post("/", add_user);
 router.patch("/:id", make_admin);
+router.get("/admin/:email", verify_token, get_admin);
 router.delete("/:id", delete_user);
 
 export default router;

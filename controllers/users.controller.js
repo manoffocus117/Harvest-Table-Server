@@ -61,6 +61,35 @@ const make_admin = async (req, res) => {
       }
 };
 
+const get_admin = async (req, res) => {
+      try {
+            const database = get_db();
+            const users_collection = database.collection("users");
+            const email = req.params.email;
+            // checking user email
+            if (email !== req.decoded.email) {
+                  return res
+                        .status(403)
+                        .send({ message: "unauthorized access" });
+            }
+
+            const query = { email: email };
+            const user = await users_collection.findOne(query);
+            // checking admin
+            let admin = false;
+            if (user) {
+                  admin = user?.role === "admin";
+            }
+
+            res.send({ admin });
+      } catch (error) {
+            res.status(500).send({
+                  message: "failed to get admin",
+                  error: error.message,
+            });
+      }
+};
+
 const delete_user = async (req, res) => {
       try {
             const database = get_db();
@@ -77,4 +106,4 @@ const delete_user = async (req, res) => {
       }
 };
 
-export { get_users, make_admin, add_user, delete_user };
+export { get_users, make_admin, get_admin, add_user, delete_user };
