@@ -17,4 +17,16 @@ const get_menu = async (req, res) => {
       }
 };
 
-export { get_menu };
+const add_menu_item = async (req, res) => {
+      console.log(req.body);
+      try {
+            const database = get_db();
+            const menu_collection = database.collection("menu");
+
+            const menu_item = req.body;
+            const result = await menu_collection.insertOne(menu_item);
+            res.send(result);
+      } catch (error) {}
+};
+
+export { get_menu, add_menu_item };
