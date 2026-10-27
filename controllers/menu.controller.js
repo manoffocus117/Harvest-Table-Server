@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { get_db } from "../config/database.js";
 
 const get_menu = async (req, res) => {
@@ -18,7 +19,6 @@ const get_menu = async (req, res) => {
 };
 
 const add_menu_item = async (req, res) => {
-      console.log(req.body);
       try {
             const database = get_db();
             const menu_collection = database.collection("menu");
@@ -26,7 +26,38 @@ const add_menu_item = async (req, res) => {
             const menu_item = req.body;
             const result = await menu_collection.insertOne(menu_item);
             res.send(result);
-      } catch (error) {}
+      } catch (error) {
+            res.status(500).send({
+                  message: "failed to add menu item",
+                  error: error.message,
+            });
+      }
 };
 
-export { get_menu, add_menu_item };
+const update_menu_item = async (req, res) => {
+      try {
+            const menu_collection = get_db().collection("menu");
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+
+            const updated_item = {
+                  $set: {
+                        name: "",
+                        recipe: "",
+                        image: "",
+                        category: "",
+                        price: "",
+                  },
+            };
+
+            const result = await menu_collection.updateOne(query, updated_item);
+            res.send(result);
+      } catch (error) {
+            res.status(500).send({
+                  message: "failed to update menu item",
+                  error: error.message,
+            });
+      }
+};
+
+export { get_menu, add_menu_item, update_menu_item };
