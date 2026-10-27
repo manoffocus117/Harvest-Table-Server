@@ -60,4 +60,21 @@ const update_menu_item = async (req, res) => {
       }
 };
 
-export { get_menu, add_menu_item, update_menu_item };
+const delete_menu_item = async (req, res) => {
+      try {
+            const menu_collection = get_db().collection("menu");
+
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+
+            const result = await menu_collection.deleteOne(query);
+            res.send(result);
+      } catch (error) {
+            res.status(500).send({
+                  message: "failed to delete menu item",
+                  error: error.message,
+            });
+      }
+};
+
+export { get_menu, add_menu_item, update_menu_item, delete_menu_item };
