@@ -2,6 +2,7 @@ import express from "express";
 import {
       add_menu_item,
       delete_menu_item,
+      get_item,
       get_menu,
       update_menu_item,
 } from "../controllers/menu.controller.js";
@@ -11,6 +12,7 @@ import verify_admin from "./../middlewares/verify_admin.middleware.js";
 const router = express.Router();
 
 router.get("/", get_menu);
+router.get("/:id", get_item);
 router.post("/", verify_token, verify_admin, add_menu_item);
 router.patch("/:id", verify_token, verify_admin, update_menu_item);
 router.delete("/:id", verify_token, verify_admin, delete_menu_item);

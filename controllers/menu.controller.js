@@ -1,14 +1,31 @@
 import { ObjectId } from "mongodb";
 import { get_db } from "../config/database.js";
 
+// get all menu items
 const get_menu = async (req, res) => {
       try {
             const database = get_db();
-
             const menu_collection = database.collection("menu");
 
             const result = await menu_collection.find().toArray();
+            res.send(result);
+      } catch (error) {
+            res.status(500).send({
+                  message: "failed to get menu",
+                  error: error.message,
+            });
+      }
+};
 
+// get a single menu item
+const get_item = async (req, res) => {
+      try {
+            const menu_collection = get_db().collection("menu");
+
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+
+            const result = await menu_collection.find(query);
             res.send(result);
       } catch (error) {
             res.status(500).send({
@@ -37,6 +54,7 @@ const add_menu_item = async (req, res) => {
 const update_menu_item = async (req, res) => {
       try {
             const menu_collection = get_db().collection("menu");
+
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
 
@@ -77,4 +95,10 @@ const delete_menu_item = async (req, res) => {
       }
 };
 
-export { get_menu, add_menu_item, update_menu_item, delete_menu_item };
+export {
+      get_menu,
+      get_item,
+      add_menu_item,
+      update_menu_item,
+      delete_menu_item,
+};
