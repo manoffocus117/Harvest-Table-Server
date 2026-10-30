@@ -25,11 +25,11 @@ const get_item = async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
 
-            const result = await menu_collection.find(query);
+            const result = await menu_collection.findOne(query);
             res.send(result);
       } catch (error) {
             res.status(500).send({
-                  message: "failed to get menu",
+                  message: "failed to get menu item",
                   error: error.message,
             });
       }
@@ -56,15 +56,16 @@ const update_menu_item = async (req, res) => {
             const menu_collection = get_db().collection("menu");
 
             const id = req.params.id;
+            const item = req.body;
             const query = { _id: new ObjectId(id) };
 
             const updated_item = {
                   $set: {
-                        name: "",
-                        recipe: "",
-                        image: "",
-                        category: "",
-                        price: "",
+                        name: item.name,
+                        recipe: item.recipe,
+                        image: item.image,
+                        category: item.category,
+                        price: item.price,
                   },
             };
 
