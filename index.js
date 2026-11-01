@@ -9,6 +9,7 @@ import reviews_routes from "./routes/reviews.routes.js";
 import cart_routers from "./routes/cart.routes.js";
 import users_routes from "./routes/users.routes.js";
 import auth_routes from "./routes/auth.routes.js";
+import payment_routes from "./routes/payment.routes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -29,9 +30,9 @@ app.get("/", (req, res) => {
 app.use("/menu", menu_routes);
 app.use("/reviews", reviews_routes);
 app.use("/cart", cart_routers);
-app.use("/cart", cart_routers);
 app.use("/users", users_routes);
 app.use("/auth", auth_routes);
+app.use("/payment", payment_routes);
 
 // local development
 if (process.env.NODE_ENV !== "production") {
