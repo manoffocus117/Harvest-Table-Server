@@ -1,18 +1,17 @@
-import Stripe from "stripe";
+import stripe from "./../config/stripe.js";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const create_payment_intent = async (req, res) => {
       try {
             const { price } = req.body;
             const amount = parseInt(price * 100);
-            const payment_intent = await stripe.paymentIntents.create({
-                  amount,
+            const paymentIntent = await stripe.paymentIntents.create({
+                  amount: amount,
                   currency: "usd",
-                  payment_method_types: ["card"],
+                  payment_method: ["card"],
             });
 
-            res.status(200).send({
-                  client_secret: payment_intent.client_secret,
+            res.send({
+                  clientSecret: paymentIntent.client_secret,
             });
       } catch (error) {
             res.status(500).send({
