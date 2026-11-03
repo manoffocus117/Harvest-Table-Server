@@ -1,6 +1,6 @@
 import { get_db } from "../config/database.js";
 
-const get_reviews = async (req, res) => {
+export const get_reviews = async (req, res) => {
       try {
             const database = get_db();
 
@@ -16,5 +16,3 @@ const get_reviews = async (req, res) => {
             });
       }
 };
-
-export { get_reviews };

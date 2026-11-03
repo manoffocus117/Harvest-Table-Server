@@ -1,6 +1,6 @@
 import stripe from "./../config/stripe.js";
 
-const create_payment_intent = async (req, res) => {
+export const create_payment_intent = async (req, res) => {
       try {
             const { price } = req.body;
             const amount = parseInt(price * 100);
@@ -20,4 +20,3 @@ const create_payment_intent = async (req, res) => {
             });
       }
 };
-export { create_payment_intent };

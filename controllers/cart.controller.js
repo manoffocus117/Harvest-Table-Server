@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { get_db } from "../config/database.js";
 
 // add to cart
-const add_to_cart = async (req, res) => {
+export const add_to_cart = async (req, res) => {
       try {
             const database = get_db();
             const cart_collection = database.collection("cart");
@@ -19,7 +19,7 @@ const add_to_cart = async (req, res) => {
 };
 
 // get all cart item
-const get_cart = async (req, res) => {
+export const get_cart = async (req, res) => {
       try {
             const database = get_db();
             const cart_collection = database.collection("cart");
@@ -36,7 +36,7 @@ const get_cart = async (req, res) => {
 };
 
 // delete a cart item
-const delete_cart_item = async (req, res) => {
+export const delete_cart_item = async (req, res) => {
       try {
             const database = get_db();
             const cart_collection = database.collection("cart");
@@ -51,5 +51,3 @@ const delete_cart_item = async (req, res) => {
             });
       }
 };
-
-export { add_to_cart, get_cart, delete_cart_item };

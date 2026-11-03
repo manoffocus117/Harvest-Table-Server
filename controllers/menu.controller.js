@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { get_db } from "../config/database.js";
 
 // get all menu items
-const get_menu = async (req, res) => {
+export const get_menu = async (req, res) => {
       try {
             const database = get_db();
             const menu_collection = database.collection("menu");
@@ -18,7 +18,7 @@ const get_menu = async (req, res) => {
 };
 
 // get a single menu item
-const get_item = async (req, res) => {
+export const get_item = async (req, res) => {
       try {
             const menu_collection = get_db().collection("menu");
 
@@ -35,7 +35,7 @@ const get_item = async (req, res) => {
       }
 };
 
-const add_menu_item = async (req, res) => {
+export const add_menu_item = async (req, res) => {
       try {
             const database = get_db();
             const menu_collection = database.collection("menu");
@@ -51,7 +51,7 @@ const add_menu_item = async (req, res) => {
       }
 };
 
-const update_menu_item = async (req, res) => {
+export const update_menu_item = async (req, res) => {
       try {
             const menu_collection = get_db().collection("menu");
 
@@ -79,7 +79,7 @@ const update_menu_item = async (req, res) => {
       }
 };
 
-const delete_menu_item = async (req, res) => {
+export const delete_menu_item = async (req, res) => {
       try {
             const menu_collection = get_db().collection("menu");
 
@@ -94,12 +94,4 @@ const delete_menu_item = async (req, res) => {
                   error: error.message,
             });
       }
-};
-
-export {
-      get_menu,
-      get_item,
-      add_menu_item,
-      update_menu_item,
-      delete_menu_item,
 };

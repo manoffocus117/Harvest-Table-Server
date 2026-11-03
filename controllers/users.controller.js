@@ -1,7 +1,7 @@
 import { get_db } from "../config/database.js";
 import { ObjectId } from "mongodb";
 
-const get_users = async (req, res) => {
+export const get_users = async (req, res) => {
       try {
             const database = get_db();
             const users_collection = database.collection("users");
@@ -15,7 +15,7 @@ const get_users = async (req, res) => {
       }
 };
 
-const add_user = async (req, res) => {
+export const add_user = async (req, res) => {
       try {
             const database = get_db();
             const users_collection = database.collection("users");
@@ -38,7 +38,7 @@ const add_user = async (req, res) => {
       }
 };
 
-const make_admin = async (req, res) => {
+export const make_admin = async (req, res) => {
       try {
             const database = get_db();
             const users_collection = database.collection("users");
@@ -61,7 +61,7 @@ const make_admin = async (req, res) => {
       }
 };
 
-const get_admin = async (req, res) => {
+export const get_admin = async (req, res) => {
       try {
             const database = get_db();
             const users_collection = database.collection("users");
@@ -90,7 +90,7 @@ const get_admin = async (req, res) => {
       }
 };
 
-const delete_user = async (req, res) => {
+export const delete_user = async (req, res) => {
       try {
             const database = get_db();
             const users_collection = database.collection("users");
@@ -105,5 +105,3 @@ const delete_user = async (req, res) => {
             });
       }
 };
-
-export { get_users, make_admin, get_admin, add_user, delete_user };
